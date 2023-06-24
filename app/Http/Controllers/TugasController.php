@@ -35,7 +35,7 @@ class TugasController extends Controller
         $tugas->mapel_id = $request->mapel_id;
         $tugas->nama_tugas = $request->nama_tugas;
         $tugas->tenggat = $request->tenggat;
-        $tugas->status = 'todo';
+        $tugas->status = 'undone';
         $tugas->user_id = auth()->user()->id;
         $tugas->save();
 
@@ -55,15 +55,26 @@ class TugasController extends Controller
      */
     public function edit(Tugas $tugas)
     {
-        //
+        $tugas = Tugas::find($tugas->id)->toArray();
+        $mapel = Mapel::where('user_id', auth()->user()->id)->get();
+        return response()->json(['tugas' => $tugas, 'mapel' => $mapel]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tugas $tugas)
+    public function update(Request $request, $id)
     {
-        //
+        $tugas = Tugas::find($id);
+        if ($request->status) {
+            $status = $request->status;
+            $tugas->status = $status;
+            $tugas->save();
+        } else {
+
+        }
+
+        return redirect()->back();
     }
 
     /**
