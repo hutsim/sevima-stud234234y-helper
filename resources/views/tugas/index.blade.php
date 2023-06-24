@@ -74,16 +74,16 @@
                                             </li>
                                             @endif
                                             <li>
-                                                <a href="{{route('tugas.edit', $t->id)}}" class="dropdown-item" onclick="edit()">
+                                                <a href="{{route('tugas.edit', $t->id)}}" class="dropdown-item" onclick="edit(event)">
                                                     <i class="fas fa-edit"></i>
                                                     Edit Tugas
                                                 </a>
                                             </li>
                                             <li>
-                                                <button class="dropdown-item">
+                                                <a href="{{route('tugas.hapus', $t->id)}}" class="dropdown-item">
                                                     <i class="fas fa-trash"></i>
                                                     Hapus Tugas
-                                                </button>
+                                                </a>
                                             </li>
                                         </ul>
                                     </td>
@@ -134,17 +134,18 @@
             </div>
         </div>
     </div>
-
+    @foreach($tugas as $tm)
     <!-- Edit Mapel Modal -->
-    <div class="modal fade" id="editTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTask{{$tm->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content p-3">
-                <form action="" class="edit-form" method="post">
+                <form action="{{route('tugas.update', $tm->id)}}" class="edit-form" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="nama_mapel">Mata Pelajaran</label>
-                            <select class="form-control form-select" name="mapel_id" id="mapel_id">
+                            <select class="form-control form-select" name="mapel_id" id="mapel_idM">
                                 <option>Pilih Mapel</option>
                                 @foreach($mapel as $m)
                                 <option value="{{$m->id}}">{{$m->nama_mapel}}</option>
@@ -153,11 +154,11 @@
                         </div>
                         <div class="form-group">
                             <label for="nama_tugas">Nama Tugas</label>
-                            <input class="form-control" type="text" name="nama_tugas" id="nama_tugas" value="">
+                            <input class="form-control" type="text" name="nama_tugas" id="nama_tugasM" value="">
                         </div>
                         <div class="form-group">
                             <label for="tenggat">Tenggat</label>
-                            <input class="form-control" type="date" name="tenggat" id="tenggat" value="">
+                            <input class="form-control" type="date" name="tenggat" id="tenggatM" value="">
                         </div>
                     </div>
                     <div class="row text-center">
@@ -172,6 +173,7 @@
             </div>
         </div>
     </div>
+    @endforeach
 
     <style>
         table {
@@ -179,11 +181,11 @@
         }
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function edit(event) {
             event.preventDefault();
-            var url = $(this).attr('href');
-            var form = $('.edit-form');
+            var url = $(event.target).attr('href');
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -192,16 +194,13 @@
                     var tugas = data.tugas;
                     var mapel = data.mapel;
 
-                    //form
-                    form.attr('action', '{{ route("tugas.update", ":tugas_id") }}'.replace(':tugas_id', tugas.id));
-
                     //mapel
-                    $('#mapel_id').empty();
+                    $('#mapel_idM').empty();
                     var option_null = $('<option>', {
                         value: '',
                         text: 'Pilih Mapel',
                     });
-                    $('#mapel_id').append(option_null);
+                    $('#mapel_idM').append(option_null);
                     $.each(mapel, function(index, m) {
                         var option = $('<option>', {
                             value: m.id,
@@ -210,13 +209,13 @@
                         if (m.id === tugas.mapel_id) {
                             option.attr('selected', 'selected');
                         }
-                        $('#mapel_id').append(option); // Menambahkan opsi ke elemen select
+                        $('#mapel_idM').append(option); // Menambahkan opsi ke elemen select
                     });
 
                     //tugas
-                    $('#nama_tugas').val(tugas.nama_tugas);
-                    $('#tenggat').val(tugas.tenggat);
-                    $('#editTask').modal('show');
+                    $('#nama_tugasM').val(tugas.nama_tugas);
+                    $('#tenggatM').val(tugas.tenggat);
+                    $('#editTask'+tugas.id).modal('show');
                 },
                 error: function(xhr){
                     console.log(xhr.responseText);

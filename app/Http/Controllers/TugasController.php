@@ -53,9 +53,9 @@ class TugasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tugas $tugas)
+    public function edit($id)
     {
-        $tugas = Tugas::find($tugas->id)->toArray();
+        $tugas = Tugas::find($id)->toArray();
         $mapel = Mapel::where('user_id', auth()->user()->id)->get();
         return response()->json(['tugas' => $tugas, 'mapel' => $mapel]);
     }
@@ -69,12 +69,14 @@ class TugasController extends Controller
         if ($request->status) {
             $status = $request->status;
             $tugas->status = $status;
-            $tugas->save();
         } else {
-
+            $tugas->nama_tugas = $request->nama_tugas;
+            $tugas->mapel_id = $request->mapel_id;
+            $tugas->tenggat = $request->tenggat;
         }
+        $tugas->save();
 
-        return redirect()->back();
+        return redirect('/tugas');
     }
 
     /**
@@ -87,6 +89,9 @@ class TugasController extends Controller
 
     public function hapus($id)
     {
-        //
+        $tugas = Tugas::find($id);
+        $tugas->delete();
+
+        return redirect()->back();
     }
 }
