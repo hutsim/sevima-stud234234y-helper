@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\AIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::middleware(['web', 'guest'])->group(function () {
     Route::post('sign-up', [RegisterController::class, 'register'])->name('register');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['web','auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('welcome');
     });
@@ -39,6 +40,9 @@ Route::middleware('auth')->group(function () {
     //tugas
     Route::resource('tugas', TugasController::class);
     Route::get('/tugas/{id}/hapus', [TugasController::class, 'hapus'])->name('tugas.hapus');
+
+    //ai
+    Route::match(['get', 'post'], 'ai', [AIController::class, 'index'])->name('ai.index');
 
     //logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');

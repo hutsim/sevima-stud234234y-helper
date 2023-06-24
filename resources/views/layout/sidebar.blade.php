@@ -6,7 +6,6 @@
             <span class="d-none d-lg-block">Study Helper</span>
         </a>
     </div>
-    <li class="nav-heading mt-5 mt-lg-0">Pages</li>
 
     <li class="nav-item">
         <a class="nav-link " href="/dashboard">
@@ -24,6 +23,12 @@
         <a class="nav-link " href="/tugas">
             <i class="fa-solid fa-border-all fa-lg"></i>
             <span>Tugas</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/ai">
+            <i class="fa-solid fa-border-all fa-lg"></i>
+            <span>AI Helper</span>
         </a>
     </li>
     <!-- End Dashboard Nav -->
