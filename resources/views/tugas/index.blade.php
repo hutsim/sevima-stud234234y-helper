@@ -30,13 +30,32 @@
                                     <th>No.</th>
                                     <th>Nama</th>
                                     <th>Tenggat</th>
+                                    <th>Mapel</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($tugas as $t)
                                 <tr>
-                                    <td></td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$t->nama_tugas}}</td>
+                                    <td>{{$t->tenggat}}</td>
+                                    <td>{{$t->mapel->nama_mapel}}</td>
+                                    <td class="text-capitalize">{{$t->status}}</td>
+                                    <td>
+                                        <a href="" class="btn" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <button class="dropdown-item">
+                                                    <i class="fas fa-edit"></i>
+                                                    Mark As Done
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -77,4 +96,17 @@
                             <div class="form-group">
                                 <a class="btn" data-bs-dismiss="modal">Cancel</a>
                                 <input type="submit" class="btn btn-success" value="Save">
-                       
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        table {
+            border: 1px solid;
+        }
+    </style>
+@endsection

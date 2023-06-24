@@ -31,7 +31,15 @@ class TugasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tugas = new Tugas();
+        $tugas->mapel_id = $request->mapel_id;
+        $tugas->nama_tugas = $request->nama_tugas;
+        $tugas->tenggat = $request->tenggat;
+        $tugas->status = 'todo';
+        $tugas->user_id = auth()->user()->id;
+        $tugas->save();
+
+        return redirect()->back();
     }
 
     /**

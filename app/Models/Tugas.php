@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tugas extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+
+    public function mapel()
+    {
+        return $this->belongsTo(Mapel::class);
+    }
 }

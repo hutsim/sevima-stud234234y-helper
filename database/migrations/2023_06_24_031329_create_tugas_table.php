@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama_tugas');
             $table->date('tenggat');
+            $table->string('status');
             $table->unsignedBigInteger('mapel_id');
             $table->foreign('mapel_id')->references('id')->on('mapels')
                   ->onDelete('cascade')
