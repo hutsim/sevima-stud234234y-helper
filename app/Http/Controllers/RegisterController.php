@@ -22,14 +22,14 @@ class RegisterController extends Controller
         ];
 
         $register = $request->validate([
-            'username' => 'required|min:7',
+            'name' => 'required|min:7',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:8'
         ], $message);
 
-        $existingUser = User::where('username', $register['username'])->first();
+        $existingUser = User::where('name', $register['name'])->first();
         if ($existingUser) {
-            session()->flash('username', 'Username sudah digunakan.');
+            session()->flash('name', 'Username sudah digunakan.');
             return redirect('/sign-up');
         }
 
@@ -40,7 +40,7 @@ class RegisterController extends Controller
         }
 
         $user = new User();
-        $user->username = $register['username'];
+        $user->username = $register['name'];
         $user->email = $register['email'];
         $user->password = bcrypt($register['password']);
         $user->save();

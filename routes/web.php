@@ -18,6 +18,10 @@ use App\Http\Controllers\AIController;
 |
 */
 
+Route::get('/', function() {
+    return redirect('/dashboard');
+});
+
 Route::middleware(['web', 'guest'])->group(function () {
     //login
     Route::get('sign-in', [LoginController::class, 'index'])->name('sign-in');

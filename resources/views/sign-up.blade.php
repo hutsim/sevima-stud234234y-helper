@@ -44,8 +44,7 @@
                   <div class="col-12">
                     <h5 for="yourName" class="form-label pb-0 fs-6">Username</h5>
                     <div class="input-group has-validation">
-                      {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
-                      <input type="text" name="username" class="form-control" id="yourName" required>
+                      <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please enter your name.</div>
                     </div>
                   </div>
@@ -79,13 +78,6 @@
                     <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" required>
                     <div class="invalid-feedback">Please confirm your password!</div>
                   </div>
-
-                  {{-- <div class="col-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                      <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                  </div> --}}
                   <div class="col-12">
                     <button class="btn btn-primary w-100" style="font-family: Nunito;" type="submit">CONTINUE</button>
                   </div>
@@ -96,11 +88,6 @@
 
               </div>
             </div>
-
-            {{-- <div class="button-signup">
-              Don't have an account ? <a href="https://bootstrapmade.com/">Sign Up</a>
-            </div> --}}
-
           </div>
         </div>
       </div>
